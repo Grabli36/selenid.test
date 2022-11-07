@@ -18,17 +18,14 @@ public class TestSelenoid {
         String buttonAuthorization = "/html/body/div[6]/div/div/div[2]/div/div/div[2]/button";
 
 
-        open("https://saint-petersburg.kaverafisha.ru/");
+        open("https://saint-petersburg.kaverafisha.ru");
         $x(buttonProfile).click();
-        TimeUnit.SECONDS.sleep(5);
         $x(buttonPhoneAuthorization).click();
-        TimeUnit.SECONDS.sleep(5);
         $x(inputPhoneNumber).setValue("9999999999");
-        TimeUnit.SECONDS.sleep(5);
         $x(buttonSend).click();
-        TimeUnit.SECONDS.sleep(5);
         $x(inputCod).setValue("3376");
         $x(buttonAuthorization).click();
+
     }
 
 
