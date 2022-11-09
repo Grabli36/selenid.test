@@ -1,4 +1,6 @@
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
+
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$x;
@@ -7,18 +9,19 @@ import static com.codeborne.selenide.Selenide.open;
 public class TestSelenoid {
 
     @Test
+    @DisplayName("Тест авторизации")
     public void testAuthorization() throws InterruptedException {
 
-        String buttonPhoneAuthorization = "/html/body/div[6]/div/div/div[2]/div/div/div[2]/button";
+        String buttonPhoneAuthorization = "//button[contains(text(),'По номеру телефона')]";
         String buttonProfile = "//*[@id=\"btn_profile\"]";
-        String inputPhoneNumber = "/html/body/div[6]/div/div/div[2]/div/div/div[1]/div/div/div[1]/input";
-        String buttonSend = "/html/body/div[6]/div/div/div[2]/div/div/div[1]/div/button";
-        String inputCod = "/html/body/div[6]/div/div/div[2]/div/div/div[2]/div/div[1]/input";
-        String buttonAuthorization = "/html/body/div[6]/div/div/div[2]/div/div/div[2]/button";
-        String iconVk = "/html/body/div[6]/div/div/div[2]/div/div/div[1]/a[1]";
-        String iconGmail = "/html/body/div[6]/div/div/div[2]/div/div/div[1]/a[2]";
-        String iconFaceBook = "/html/body/div[6]/div/div/div[2]/div/div/div[1]/a[3]";
-        String Goodsession = "/html/body/div[1]/div/div[1]/h2";
+        String inputPhoneNumber = " //input[@class='sc-cSHVUG GWKti']";
+        String buttonSend = "//button[@class='sc-kpOJdX rkQYm']";
+        String inputCod = "//input[@class='sc-cSHVUG cYBPsl']";
+        String buttonAuthorization = "//input[@class='sc-cSHVUG cYBPsl']";
+        String iconVk = "//a[@href='/social-auth/vkontakte']";
+        String iconGmail = "//a[@href='/social-auth/vkontakte']";
+        String iconFaceBook = "//a[@href='/social-auth/facebook']";
+        String Goodsession = "//button[contains(text(),'Вернуться назад')]";
 
 
         open("https://saint-petersburg.kaverafisha.ru");
@@ -29,9 +32,11 @@ public class TestSelenoid {
         $x(buttonPhoneAuthorization).shouldBe(visible).click();
         $x(inputPhoneNumber).setValue("9999999999");
         $x(buttonSend).click();
-        $x(inputCod).setValue("`3376`");
-        $x(buttonAuthorization).click();
-        $x(Goodsession).shouldHave(text("Страница не найдена"));
+        $x(inputCod).setValue("3376");
+        $x(buttonAuthorization).shouldBe(visible).click();
+        $x(Goodsession).shouldHave(text("Вернуться назад"));
+
+
 
 
     }
