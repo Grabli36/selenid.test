@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
+import static org.junit.Assert.assertTrue;
 
 public class TestSelenoid {
 
@@ -17,7 +18,7 @@ public class TestSelenoid {
         String inputPhoneNumber = " //input[@class='sc-cSHVUG GWKti']";
         String buttonSend = "//button[@class='sc-kpOJdX rkQYm']";
         String inputCod = "//input[@class='sc-cSHVUG cYBPsl']";
-        String buttonAuthorization = "//input[@class='sc-cSHVUG cYBPsl']";
+        String buttonAuthorization = "//button[contains(text(),'Авторизоваться')]";
         String iconVk = "//a[@href='/social-auth/vkontakte']";
         String iconGmail = "//a[@href='/social-auth/vkontakte']";
         String iconFaceBook = "//a[@href='/social-auth/facebook']";
@@ -32,9 +33,12 @@ public class TestSelenoid {
         $x(buttonPhoneAuthorization).shouldBe(visible).click();
         $x(inputPhoneNumber).setValue("9999999999");
         $x(buttonSend).click();
-        $x(inputCod).setValue("3376");
-        $x(buttonAuthorization).shouldBe(visible).click();
-        $x(Goodsession).shouldHave(text("Вернуться назад"));
+        $x(inputCod).setValue("3376").shouldBe(visible);
+        Thread.sleep(3000);
+        $x(buttonAuthorization).click();
+        /*$x(Goodsession).shouldHave(text("Вернуться назад"));*/
+        Thread.sleep(13000);
+        /*assertTrue();*/
 
 
 
