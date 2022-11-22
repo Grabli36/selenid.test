@@ -1,47 +1,47 @@
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
-import org.junit.Test;
+import org.junit.jupiter.api.*;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
+import com.codeborne.selenide.WebDriverRunner;
 
 public class TestSelenoid {
     static AndroidDriver driver;
-    String PAGE_ACTIVITY = ".presentation.launch.LaunchActivity";
-    String APP_PACKAGE = "info.goodline.communals";
+    static DesiredCapabilities capabilities;
 
-    @BeforeTest
-    public void setUp() throws MalformedURLException {
+    public void init() {
+        capabilities = new DesiredCapabilities();
+        capabilities.setCapability("appActivity", ".presentation.launch.LaunchActivity");
+        capabilities.setCapability("appPackage", "info.goodline.communals");
+        capabilities.setCapability(MobileCapabilityType.APP,
+                "Users/ukhatkin.ea/Desktop/webdraiver/communals.apk/");
+        capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, Platform.ANDROID);
+        capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Google Pixel 3");
+        capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UITest");
+        capabilities.setCapability("uiautomator2ServerInstallTimeout", "90000");
+        capabilities.setCapability("skipUnlock", true);
+        capabilities.setCapability("uninstallOtherPackages", "true");
 
-        DesiredCapabilities cap = new DesiredCapabilities();
+        driver  = new AndroidDriver(capabilities);
 
+        WebDriverRunner.setWebDriver(driver);
+        Runtime.getRuntime().addShutdownHook(new Thread());
+    }
 
-        cap.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
-        cap.setCapability(MobileCapabilityType.PLATFORM_VERSION, "9");
-        cap.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UITest");
-        cap.setCapability(MobileCapabilityType.DEVICE_NAME, "Google Pixel 3");
-        cap.setCapability(MobileCapabilityType.APP, "Users/ukhatkin.ea/Desktop/webdraiver/communals.apk/");
-        cap.setCapability("appPackage",APP_PACKAGE);
-        cap.setCapability("appActivity",PAGE_ACTIVITY);
-
-        driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), cap);
-
+    @BeforeEach
+    public void setup() {
+        init();
     }
 
     @Test
     public void test() {
         MobileElement el1 = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"Phone\"]");
         el1.click();
-
-
     }
 
-    @AfterTest
+    @AfterEach
     public void end() {
         driver.quit();
     }
